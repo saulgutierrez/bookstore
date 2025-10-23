@@ -1,6 +1,10 @@
 <?php require "../includes/header.php"; ?>
 <?php require "../config/config.php"; ?>
 <?php
+    if (isset($_SESSION['username'])) {
+        header("location: ".APPURL."");
+    }
+    
     if (isset($_POST['submit'])) {
         if (empty($_POST['email']) OR empty($_POST['password'])) {
             echo "<script>alert('One or more inputs are empty');</script>";
@@ -16,7 +20,9 @@
             if ($login->rowCount() > 0) {
                 // Check for the hashed password
                 if (password_verify($password, $fetch['mypassword'])) {
-                    echo "LOGGED IN";
+                    $_SESSION['username'] = $fetch['username'];
+                    $_SESSION['user_id'] = $fetch['id'];
+                    header("location: ".APPURL."");
                 } else {
                     echo "<script>alert('password or email are wrong');</script>";
                 }
