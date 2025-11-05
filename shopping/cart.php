@@ -42,10 +42,10 @@
                           class="img-fluid rounded-3" alt="Cotton T-shirt">
                           </td>
                           <td><?php echo $product->pro_name; ?></td>
-                          <td>$<?php echo $product->pro_price; ?></td>
+                          <td class="pro_price"><?php echo $product->pro_price; ?></td>
                           <td><input id="form1" min="1" name="quantity" value="1" type="number"
-                          class="form-control form-control-sm" /></td>
-                          <td>$</td>
+                          class="form-control form-control-sm pro_amount" /></td>
+                          <td class="total_price"></td>
                           <td><button class="btn btn-warning text-white"><i class="fas fa-pen"></i> </button></td>
                           <td><button class="btn btn-danger text-white"><i class="fas fa-trash-alt"></i> </button></td>
                         </tr>
@@ -64,7 +64,7 @@
 
                   <div class="d-flex justify-content-between mb-5">
                     <h5 class="text-uppercase">Total price</h5>
-                    <h5>€ 137.00</h5>
+                    <h5 class="full_price"></h5>
                   </div>
 
                   <button type="button" class="btn btn-dark btn-block btn-lg"
@@ -80,3 +80,50 @@
 
     </div>
 <?php require "../includes/footer.php"; ?>
+
+<script>
+  $(document).ready(function () {
+    $(".pro_amount").mouseup(function () {
+      var $el = $(this).closest('tr');
+      var pro_amount = $el.find(".pro_amount").val();
+      var pro_price = $el.find(".pro_price").html();
+      var total = pro_amount * pro_price;
+      $el.find(".total_price").html("");        
+      $el.find(".total_price").append(total+'$');
+      // $(".btn-update").on('click', function(e) {
+      //     var id = $(this).val();
+      //     $.ajax({
+      //       type: "POST",
+      //       url: "update-item.php",
+      //       data: {
+      //         update: "update",
+      //         id: id,
+      //         product_amount: pro_amount
+      //       },
+      //       success: function() {
+      //         // alert("done");
+      //         reload();
+      //       }
+      //     })
+      // });
+      fetch();
+    });
+
+    fetch();
+    
+    function fetch() {
+      setInterval(function () {
+        var sum = 0.0;
+        $('.total_price').each(function()
+        {
+            sum += parseFloat($(this).text());
+        });
+        $(".full_price").html(sum+"$");
+      }, 4000);
+    }
+    
+    // function reload() { 
+    //   $("body").load("cart.php")
+    // }
+  });
+</script>
