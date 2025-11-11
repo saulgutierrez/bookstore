@@ -4,7 +4,6 @@
 <?php
 
     if (isset($_POST['update'])) {
-        var_dump($_POST);
         $id = $_POST['id'];
         $pro_amount = $_POST['pro_amount'];
 
@@ -12,6 +11,5 @@
         $update->execute();
     }
 ?>
-
 
 <?php require "../includes/footer.php"; ?>

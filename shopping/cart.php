@@ -18,8 +18,6 @@
                   <div class="d-flex justify-content-between align-items-center mb-5">
                     <h1 class="fw-bold mb-0 text-black">Shopping Cart</h1>
                   </div>
-
-
                   <table class="table" height="190" >
                     <thead>
                       <tr>
@@ -47,7 +45,7 @@
                           class="form-control form-control-sm pro_amount" /></td>
                           <td class="total_price"><?php echo $product->pro_price * $product->pro_amount; ?></td>
                           <td><button value="<?php echo $product->id; ?>" class="btn-update btn btn-warning text-white"><i class="fas fa-pen"></i> </button></td>
-                          <td><button class="btn btn-danger text-white"><i class="fas fa-trash-alt"></i> </button></td>
+                          <td><button value="<?php echo $product->id; ?>" class="btn btn-delete btn-danger text-white"><i class="fas fa-trash-alt"></i> </button></td>
                         </tr>
                       <?php endforeach; ?>
                     </tbody>
@@ -59,25 +57,18 @@
                 <div class="p-5">
                   <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
                   <hr class="my-4">
-
-                  
-
                   <div class="d-flex justify-content-between mb-5">
                     <h5 class="text-uppercase">Total price</h5>
                     <h5 class="full_price"></h5>
                   </div>
-
                   <button type="button" class="btn btn-dark btn-block btn-lg"
                     data-mdb-ripple-color="dark">Checkout</button>
-
                 </div>
               </div>
             </div>
           </div>
         </div>
-       
       </div>
-
     </div>
 <?php require "../includes/footer.php"; ?>
 
@@ -92,8 +83,6 @@
       $el.find(".total_price").append(total+'$');
       $(".btn-update").on('click', function(e) {
           var id = $(this).val();
-          // alert(id);
-          // alert(pro_amount);
           $.ajax({
             type: "POST",
             url: "update-item.php",
@@ -103,13 +92,28 @@
               pro_amount: pro_amount
             },
             success: function() {
-              //alert("done");
-              // reload();
+              reload();
             }
           })
       });
       fetch();
     });
+
+    $(".btn-delete").on('click', function(e) {
+          var id = $(this).val();
+          $.ajax({
+            type: "POST",
+            url: "delete-item.php",
+            data: {
+              delete: "delete",
+              id: id
+            },
+            success: function() {
+              reload();
+            }
+          })
+          fetch();
+      });
 
     fetch();
     
