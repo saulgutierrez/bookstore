@@ -43,10 +43,10 @@
                           </td>
                           <td><?php echo $product->pro_name; ?></td>
                           <td class="pro_price"><?php echo $product->pro_price; ?></td>
-                          <td><input id="form1" min="1" name="quantity" value="1" type="number"
+                          <td><input id="form1" min="1" name="quantity" value="<?php echo $product->pro_amount; ?>" type="number"
                           class="form-control form-control-sm pro_amount" /></td>
-                          <td class="total_price"></td>
-                          <td><button class="btn btn-warning text-white"><i class="fas fa-pen"></i> </button></td>
+                          <td class="total_price"><?php echo $product->pro_price * $product->pro_amount; ?></td>
+                          <td><button value="<?php echo $product->id; ?>" class="btn-update btn btn-warning text-white"><i class="fas fa-pen"></i> </button></td>
                           <td><button class="btn btn-danger text-white"><i class="fas fa-trash-alt"></i> </button></td>
                         </tr>
                       <?php endforeach; ?>
@@ -90,22 +90,24 @@
       var total = pro_amount * pro_price;
       $el.find(".total_price").html("");        
       $el.find(".total_price").append(total+'$');
-      // $(".btn-update").on('click', function(e) {
-      //     var id = $(this).val();
-      //     $.ajax({
-      //       type: "POST",
-      //       url: "update-item.php",
-      //       data: {
-      //         update: "update",
-      //         id: id,
-      //         product_amount: pro_amount
-      //       },
-      //       success: function() {
-      //         // alert("done");
-      //         reload();
-      //       }
-      //     })
-      // });
+      $(".btn-update").on('click', function(e) {
+          var id = $(this).val();
+          // alert(id);
+          // alert(pro_amount);
+          $.ajax({
+            type: "POST",
+            url: "update-item.php",
+            data: {
+              update: "update",
+              id: id,
+              pro_amount: pro_amount
+            },
+            success: function() {
+              //alert("done");
+              // reload();
+            }
+          })
+      });
       fetch();
     });
 
@@ -122,8 +124,8 @@
       }, 4000);
     }
     
-    // function reload() { 
-    //   $("body").load("cart.php")
-    // }
+    function reload() { 
+      $("body").load("cart.php")
+    }
   });
 </script>
