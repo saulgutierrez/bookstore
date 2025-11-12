@@ -28,26 +28,32 @@
                         <th scope="col">Quantity</th>
                         <th scope="col">Total Price</th>
                         <th scope="col">Update</th>
-                        <th scope="col"><a href="#" class="btn btn-danger text-white">Clear</a></th>
+                        <th scope="col"><button href="#" class="delete-all btn btn-danger text-white">Clear</button></th>
                       </tr>
                     </thead>
                     <tbody>
-                      <?php foreach($allProducts as $product) : ?>
-                        <tr class="mb-4">
-                          <th scope="row"><?php echo $product->pro_id; ?></th>
-                          <td><img width="100" height="100"
-                          src="../images/<?php echo $product->pro_image; ?>"
-                          class="img-fluid rounded-3" alt="Cotton T-shirt">
-                          </td>
-                          <td><?php echo $product->pro_name; ?></td>
-                          <td class="pro_price"><?php echo $product->pro_price; ?></td>
-                          <td><input id="form1" min="1" name="quantity" value="<?php echo $product->pro_amount; ?>" type="number"
-                          class="form-control form-control-sm pro_amount" /></td>
-                          <td class="total_price"><?php echo $product->pro_price * $product->pro_amount; ?></td>
-                          <td><button value="<?php echo $product->id; ?>" class="btn-update btn btn-warning text-white"><i class="fas fa-pen"></i> </button></td>
-                          <td><button value="<?php echo $product->id; ?>" class="btn btn-delete btn-danger text-white"><i class="fas fa-trash-alt"></i> </button></td>
-                        </tr>
-                      <?php endforeach; ?>
+                      <?php if (count($allProducts) > 0) : ?>
+                        <?php foreach($allProducts as $product) : ?>
+                          <tr class="mb-4">
+                            <th scope="row"><?php echo $product->pro_id; ?></th>
+                            <td><img width="100" height="100"
+                            src="../images/<?php echo $product->pro_image; ?>"
+                            class="img-fluid rounded-3" alt="Cotton T-shirt">
+                            </td>
+                            <td><?php echo $product->pro_name; ?></td>
+                            <td class="pro_price"><?php echo $product->pro_price; ?></td>
+                            <td><input id="form1" min="1" name="quantity" value="<?php echo $product->pro_amount; ?>" type="number"
+                            class="form-control form-control-sm pro_amount" /></td>
+                            <td class="total_price"><?php echo $product->pro_price * $product->pro_amount; ?></td>
+                            <td><button value="<?php echo $product->id; ?>" class="btn-update btn btn-warning text-white"><i class="fas fa-pen"></i> </button></td>
+                            <td><button value="<?php echo $product->id; ?>" class="btn btn-delete btn-danger text-white"><i class="fas fa-trash-alt"></i> </button></td>
+                          </tr>
+                        <?php endforeach; ?>
+                      <?php else: ?>
+                        <div class="alert alert-danger bg-danger text-white">
+                          There is no products in the cart
+                        </div>
+                      <?php endif; ?>
                     </tbody>
                   </table>
                   <a href="<?php echo APPURL; ?>" class="btn btn-success text-white"><i class="fas fa-arrow-left"></i>  Continue Shopping</a>
@@ -114,6 +120,20 @@
           })
           fetch();
       });
+
+    $(".delete-all").on("click", function (e) {
+        $.ajax({
+          type: "POST",
+          url: "delete-all-item.php",
+          data: {
+            delete: "delete"
+          },
+          success: function() {
+            reload();
+          }
+        })
+      fetch();
+    });
 
     fetch();
     

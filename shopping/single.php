@@ -84,7 +84,7 @@
                                     </div>
                                     <?php if (isset($_SESSION['user_id'])) : ?>
                                         <div>
-                                            <input type="text" name="user_id" value="<?php echo $_SESSION['user_id']; ?>" class="form-control">
+                                            <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>" class="form-control">
                                         </div>
                                     <?php endif; ?>
                                     <div class="cart mt-4 align-items-center">
