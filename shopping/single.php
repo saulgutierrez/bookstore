@@ -117,11 +117,16 @@
                 data:   formData,
 
                 success:    function () {
-                    alert("Added to cart successfully");
                     // Disable added button, onle works once time
                     $("#submit").html("<i class='fas fa-shopping-cart'></i> Added to cart").prop("disabled", true);
+                    ref();
                 }
             });
+            
+            // Refreshing dinamically for update the count in the cart
+            function ref() { 
+                $("body").load("single.php?id=<?php echo $id; ?>");
+            }
         });
     });
 </script>
