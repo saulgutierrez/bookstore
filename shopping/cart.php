@@ -6,6 +6,13 @@
 
   $allProducts = $products->fetchAll(PDO::FETCH_OBJ);
 
+  // Keeping the value of the price across pages
+  if (isset($_POST['submit'])) {
+    $price = $_POST['price'];
+    $_SESSION['price'] = $price;
+    header("Location: checkout.php");
+  }
+
 ?>
 
 <div class="row d-flex justify-content-center align-items-center h-100 mt-5 mt-5">
@@ -63,12 +70,16 @@
                 <div class="p-5">
                   <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
                   <hr class="my-4">
-                  <div class="d-flex justify-content-between mb-5">
-                    <h5 class="text-uppercase">Total price</h5>
-                    <h5 class="full_price"></h5>
-                  </div>
-                  <button type="button" class="btn btn-dark btn-block btn-lg"
-                    data-mdb-ripple-color="dark">Checkout</button>
+                  <!-- Send the total price of the cart to the checkout page -->
+                  <form method="post" action="cart.php">
+                    <div class="d-flex justify-content-between mb-5">
+                      <h5 class="text-uppercase">Total price</h5>
+                      <h5 class="full_price"></h5>
+                      <input type="text" name="price" class="inp_price">
+                    </div>
+                    <button type="submit" name="submit" class="btn btn-dark btn-block btn-lg"
+                      data-mdb-ripple-color="dark">Checkout</button>
+                  </form>
                 </div>
               </div>
             </div>
@@ -145,6 +156,8 @@
             sum += parseFloat($(this).text());
         });
         $(".full_price").html(sum+"$");
+        $(".inp_price").val(sum);
+
       }, 4000);
     }
     
