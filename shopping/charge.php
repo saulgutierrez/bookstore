@@ -36,6 +36,8 @@
                 ':price' => $price,
                 ':user_id' => $user_id,
             ]);
+
+            header("location: ".APPURL."/download.php");
         }
     }
 ?>
