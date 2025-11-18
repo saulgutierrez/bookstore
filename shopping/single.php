@@ -39,7 +39,7 @@
 
         $product = $row->fetch(PDO::FETCH_OBJ);
     } else {
-        echo "404";
+        header("Location: ".APPURL."/404.php");
     }
 ?>
 

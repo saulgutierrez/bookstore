@@ -10,6 +10,11 @@
         die(header('location: '.APPURL.''));
     }
 
+    // Return to main page if the user is logged out
+    if (!isset($_SESSION['username'])) {
+        header("location: ".APPURL."");
+    }
+
 
     if (isset($_POST['email'])) {
 

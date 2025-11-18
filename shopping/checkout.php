@@ -8,6 +8,11 @@
         header('HTTP/1.0 403 Forbidden', TRUE, 403);
         die(header('location: '.APPURL.''));
     }
+
+    // Return to main page if the user is logged out
+    if (!isset($_SESSION['username'])) {
+      header("location: ".APPURL."");
+    }
 ?>
       <!-- Heading -->
       <h2 class="my-5 h2 text-center">Checkout</h2>

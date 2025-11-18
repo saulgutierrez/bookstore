@@ -1,6 +1,12 @@
 <?php require "../includes/header.php"; ?>
 <?php require "../config/config.php"; ?>
 <?php
+
+  // Return to main page if the user is logged out
+  if (!isset($_SESSION['username'])) {
+    header("location: ".APPURL."");
+  }
+
   $products = $conn->query("SELECT * FROM cart WHERE user_id = '$_SESSION[user_id]'");
   $products->execute();
 

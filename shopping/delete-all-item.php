@@ -10,6 +10,11 @@
         die(header('location: '.APPURL.''));
     }
 
+    // Return to main page if the user is logged out
+    if (!isset($_SESSION['username'])) {
+        header("location: ".APPURL."");
+    }
+
     if (isset($_POST['delete'])) {
         $delete = $conn->prepare("DELETE FROM cart WHERE user_id = '$_SESSION[user_id]'");
         $delete->execute();
