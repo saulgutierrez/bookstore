@@ -77,7 +77,7 @@
                       <h5 class="full_price"></h5>
                       <input type="hidden" name="price" class="inp_price">
                     </div>
-                    <button type="submit" name="submit" class="btn btn-dark btn-block btn-lg"
+                    <button type="submit" name="submit" class="checkout btn btn-dark btn-block btn-lg"
                       data-mdb-ripple-color="dark">Checkout</button>
                   </form>
                 </div>
@@ -157,6 +157,12 @@
         });
         $(".full_price").html(sum+"$");
         $(".inp_price").val(sum);
+
+        if ($(".inp_price").val() > 0) {
+          $(".checkout").show();
+        } else {
+          $(".checkout").hide();
+        }
 
       }, 4000);
     }
