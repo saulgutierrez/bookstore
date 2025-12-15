@@ -82,7 +82,7 @@
               <script
                 src="https://checkout.stripe.com/checkout.js"
                 class="stripe-button"
-                data-key="pk_test_51STSntF2L0uc4tAuzPRv6izIYT7rTzt74d2wQHK6hiHj9nuY7uim0B9JMqyjvxEQ8Owo3bPmpxSYBemr3yFuWIAj00CnOuccux"
+                data-key="your_public_api_key"
                 data-currency="mxn"
                 data-label="pay now">
               </script>
