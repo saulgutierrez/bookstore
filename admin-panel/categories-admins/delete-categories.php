@@ -5,6 +5,15 @@
     if (isset($_GET['id'])) {
         $id = $_GET['id'];
 
+        $select = $conn->query("SELECT * FROM categories WHERE id='$id'");
+        $select->execute();
+
+        // Get the record selected
+        $images = $select->fetch(PDO::FETCH_OBJ);
+
+        // Remove the file located into the specific row in the record selected
+        unlink("images/".$images->image."");
+
         $delete = $conn->query("DELETE FROM categories WHERE id='$id'");
         $delete->execute();
         header("location: ".ADMINURL."/categories-admins/show-categories.php");
