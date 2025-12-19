@@ -32,7 +32,7 @@
                       <td><?php echo $product->name; ?></td>
                       <td><?php echo $product->price; ?></td>
                       <td><a href="#" class="btn btn-danger  text-center ">unverfied</a></td>
-                      <td><a href="#" class="btn btn-danger  text-center ">delete</a></td>
+                      <td><a href="<?php echo ADMINURL; ?>/products-admins/delete-products.php?id=<?php echo $product->id; ?>" class="btn btn-danger  text-center ">delete</a></td>
                     </tr>
                   <?php endforeach; ?>
                 </tbody>
