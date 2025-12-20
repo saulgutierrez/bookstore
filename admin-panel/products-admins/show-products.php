@@ -31,7 +31,11 @@
                       <th scope="row"><?php echo $product->id; ?></th>
                       <td><?php echo $product->name; ?></td>
                       <td><?php echo $product->price; ?></td>
-                      <td><a href="#" class="btn btn-danger  text-center ">unverfied</a></td>
+                      <?php if ($product->status > 0) : ?>
+                        <td><a href="<?php echo ADMINURL; ?>/products-admins/status.php?id=<?php echo $product->id; ?>&status=<?php echo $product->status; ?>" class="btn btn-danger  text-center ">unverfied</a></td>
+                      <?php else: ?>
+                        <td><a href="<?php echo ADMINURL; ?>/products-admins/status.php?id=<?php echo $product->id; ?>&status=<?php echo $product->status; ?>" class="btn btn-success  text-center ">verfied</a></td>
+                      <?php endif; ?>
                       <td><a href="<?php echo ADMINURL; ?>/products-admins/delete-products.php?id=<?php echo $product->id; ?>" class="btn btn-danger  text-center ">delete</a></td>
                     </tr>
                   <?php endforeach; ?>
