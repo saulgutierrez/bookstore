@@ -3,7 +3,7 @@
 <?php
 
     if (!isset($_SESSION['adminname'])) {
-        header("location: ".ADMINURL."");
+        header("location: ".ADMINURL."/admins/login-admins.php");
     }
 
     if (isset($_POST['submit'])) {

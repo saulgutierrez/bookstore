@@ -1,6 +1,10 @@
 <?php require "../layouts/header.php"; ?>
 <?php require "../../config/config.php"; ?>
 <?php
+  if (!isset($_SESSION['adminname'])) {
+        header("location: ".ADMINURL."/admins/login-admins.php");
+  }
+
   if (isset($_POST['submit'])) {
     if (empty($_POST['name']) OR empty($_POST['description'])) {
             echo "<script>alert('One or more inputs are empty');</script>";

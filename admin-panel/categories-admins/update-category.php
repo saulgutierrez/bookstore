@@ -3,6 +3,10 @@
 
 <?php
     if (isset($_GET['id'])) {
+        if (!isset($_SESSION['adminname'])) {
+          header("location: ".ADMINURL."/admins/login-admins.php");
+        }
+
         $id = $_GET['id'];
 
         $select = $conn->query("SELECT * FROM categories WHERE id='$id'");
