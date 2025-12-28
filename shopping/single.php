@@ -96,6 +96,7 @@
                                             <?php endif; ?>
                                         <?php endif; ?>
                                     </div>
+                                    <button type="submit" class="wishlist-btn btn btn-primary text-uppercase mr-2 px-4"><i class="fas fa-heart"></i> Add to wishlist</button>
                                 </form>
                             </div>
                         </div>
@@ -128,5 +129,22 @@
                 $("body").load("single.php?id=<?php echo $id; ?>");
             }
         });
+
+        $(".wishlist-btn").on("click", function(e) {
+            e.preventDefault();
+            var formData = $("#form-data").serialize()+'&submit=submit';
+
+            $.ajax({
+                type:   "POST",
+                url:    "wishlist.php",
+                data:   formData,
+
+                success:    function () {
+                    alert("Added to wishlist successfully");
+                }
+            });
+        });
+
+
     });
 </script>
