@@ -23,16 +23,16 @@
 
                 <ul class="list-unstyled mb-0">
                 <li>
-                    <a href="#!" class="text-white">Link 1</a>
+                    <a href="#!" class="text-white" style="text-decoration: none;">Carrers</a>
                 </li>
                 <li>
-                    <a href="#!" class="text-white">Link 2</a>
+                    <a href="#!" class="text-white" style="text-decoration: none;">Support</a>
                 </li>
                 <li>
-                    <a href="#!" class="text-white">Link 3</a>
+                    <a href="#!" class="text-white" style="text-decoration: none;">Blog</a>
                 </li>
                 <li>
-                    <a href="#!" class="text-white">Link 4</a>
+                    <a href="#!" class="text-white" style="text-decoration: none;">Investors</a>
                 </li>
                 </ul>
             </div>
@@ -44,16 +44,16 @@
 
                 <ul class="list-unstyled">
                 <li>
-                    <a href="#!" class="text-white">Link 1</a>
+                    <a href="#!" class="text-white" style="text-decoration: none;">Terms</a>
                 </li>
                 <li>
-                    <a href="#!" class="text-white">Link 2</a>
+                    <a href="#!" class="text-white" style="text-decoration: none;">Privacy and Policy</a>
                 </li>
                 <li>
-                    <a href="#!" class="text-white">Link 3</a>
+                    <a href="#!" class="text-white" style="text-decoration: none;">Sitemap</a>
                 </li>
                 <li>
-                    <a href="#!" class="text-white">Link 4</a>
+                    <a href="#!" class="text-white" style="text-decoration: none;">Contact Us</a>
                 </li>
                 </ul>
             </div>
