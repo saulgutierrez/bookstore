@@ -105,14 +105,15 @@
                                                 <button id="submit" name="submit" type="submit" class="btn btn-primary text-uppercase mr-2 px-4"><i class="fas fa-shopping-cart"></i> Add to cart</button>
                                             <?php endif; ?>
                                         <?php endif; ?>
-                                    </div>
-                                    <?php if (isset($_SESSION['user_id'])) : ?>
-                                        <?php if ($select_wishlist->rowCount() > 0) : ?>
-                                            <button value="<?php echo $fetch->id; ?>" class="btn-delete-wishlist btn btn-primary text-uppercase mr-2 px-4"><i class="fas fa-heart"></i> Added to wishlist</button>
-                                        <?php else: ?>
-                                            <button class="wishlist-btn btn btn-primary text-uppercase mr-2 px-4"><i class="fas fa-heart"></i> Add to wishlist</button>
+
+                                        <?php if (isset($_SESSION['user_id'])) : ?>
+                                            <?php if ($select_wishlist->rowCount() > 0) : ?>
+                                                <button value="<?php echo $fetch->id; ?>" class="btn-delete-wishlist btn btn-primary text-uppercase mr-2 px-4"><i class="fas fa-heart"></i> Added to wishlist</button>
+                                            <?php else: ?>
+                                                <button class="wishlist-btn btn btn-primary text-uppercase mr-2 px-4"><i class="fas fa-heart"></i> Add to wishlist</button>
+                                            <?php endif; ?>
                                         <?php endif; ?>
-                                    <?php endif; ?>
+                                    </div>
                                 </form>
                             </div>
                         </div>
@@ -139,6 +140,8 @@
                     ref();
                 }
             });
+
+            setTimeout(notifyCart, 100);
             
             // Refreshing dinamically for update the count in the cart
             function ref() { 
@@ -156,18 +159,36 @@
                 data:   formData,
 
                 success:    function () {
-                    alert("Added to wishlist successfully");
                     $(".wishlist-btn").html("<i class='fas fa-heart'></i> Added to wishlist").addClass("btn-delete-wishlist").removeClass("wishlist-btn");
                     ref();
                 }
+                
             });
+            setTimeout(notifyAddedWishlist, 100);
 
             function ref() {
                 $("body").load("single.php?id=<?php echo $id; ?>")
             }
         });
 
+        function ref() {
+            $("body").load("single.php?id=<?php echo $id; ?>")
+        }
+
+        function notifyCart() {
+            alertify.success('Added to the cart successfully');
+        }
+
+        function notifyAddedWishlist() {
+            alertify.success('Added to the wishlist successfully');
+        }
+
+        function notifyDeleteWishlist() {
+            alertify.success('Remove from wishlist successfully');
+        }
+
         $(".btn-delete-wishlist").on('click', function(e) {
+            e.preventDefault();
             var id = $(this).val();
             $.ajax({
                 type: "POST",
@@ -177,10 +198,11 @@
                     id: id
                 },
                 success: function() {
-                    reload();
+                    $(".btn-delete-wishlist").html("<i class='fas fa-heart'></i> Add to wishlist").addClass("btn-delete-wishlist").addClass("wishlist-btn").removeClass("btn-delete-wishlist");
+                    ref();
                 }
             })
-            fetch();
+            setTimeout(notifyDeleteWishlist, 100);
         });
     });
 </script>
