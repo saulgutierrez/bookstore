@@ -27,10 +27,20 @@
     if (isset($_GET['id'])) {
         $id = $_GET['id'];
 
+        // Checking for product in cart
         if (isset($_SESSION['user_id'])) {
             // Checking for product in cart
             $select = $conn->query("SELECT * FROM cart WHERE pro_id = '$id' AND user_id ='$_SESSION[user_id]'");
             $select->execute();
+        }
+
+        // Getting id for wishlist
+        if (isset($_SESSION['user_id'])) {
+            // Checking for product in wishlist
+            $select_wishlist = $conn->query("SELECT * FROM wishlist WHERE pro_id = '$id' AND user_id ='$_SESSION[user_id]'");
+            $select_wishlist->execute();
+
+            $fetch = $select_wishlist->fetch(PDO::FETCH_OBJ);
         }
 
         // Getting data for every product
@@ -96,7 +106,13 @@
                                             <?php endif; ?>
                                         <?php endif; ?>
                                     </div>
-                                    <button type="submit" class="wishlist-btn btn btn-primary text-uppercase mr-2 px-4"><i class="fas fa-heart"></i> Add to wishlist</button>
+                                    <?php if (isset($_SESSION['user_id'])) : ?>
+                                        <?php if ($select_wishlist->rowCount() > 0) : ?>
+                                            <button value="<?php echo $fetch->id; ?>" class="btn-delete-wishlist btn btn-primary text-uppercase mr-2 px-4"><i class="fas fa-heart"></i> Added to wishlist</button>
+                                        <?php else: ?>
+                                            <button class="wishlist-btn btn btn-primary text-uppercase mr-2 px-4"><i class="fas fa-heart"></i> Add to wishlist</button>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
                                 </form>
                             </div>
                         </div>
@@ -141,10 +157,30 @@
 
                 success:    function () {
                     alert("Added to wishlist successfully");
+                    $(".wishlist-btn").html("<i class='fas fa-heart'></i> Added to wishlist").addClass("btn-delete-wishlist").removeClass("wishlist-btn");
+                    ref();
                 }
             });
+
+            function ref() {
+                $("body").load("single.php?id=<?php echo $id; ?>")
+            }
         });
 
-
+        $(".btn-delete-wishlist").on('click', function(e) {
+            var id = $(this).val();
+            $.ajax({
+                type: "POST",
+                url: "delete-item-wishlist.php",
+                data: {
+                    delete: "delete",
+                    id: id
+                },
+                success: function() {
+                    reload();
+                }
+            })
+            fetch();
+        });
     });
 </script>

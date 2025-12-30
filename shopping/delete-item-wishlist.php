@@ -1,0 +1,27 @@
+<?php require "../includes/header.php"; ?>
+<?php require "../config/config.php"; ?>
+
+<?php
+
+    // Avoid the users access to this page directly accross URL
+    // This page doesn't must be visible if the cart is empty
+    if ($_SERVER['REQUEST_METHOD'] == 'GET' && realpath(__FILE__) == realpath($_SERVER['SCRIPT_FILENAME'])) {
+        header('HTTP/1.0 403 Forbidden', TRUE, 403);
+        die(header('location: '.APPURL.''));
+    }
+
+    // Return to main page if the user is logged out
+    if (!isset($_SESSION['username'])) {
+        header("location: ".APPURL."");
+    }
+
+
+    if (isset($_POST['delete'])) {
+        $id = $_POST['id'];
+
+        $delete = $conn->prepare("DELETE FROM wishlist WHERE id = '$id'");
+        $delete->execute();
+    }
+?>
+
+<?php require "../includes/footer.php"; ?>
